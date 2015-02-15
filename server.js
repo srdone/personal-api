@@ -8,6 +8,8 @@ var app = express();
 
 //add middleware for all calls
 app.use(morgan('dev'));
+
+app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 //json data - getters only
@@ -16,10 +18,24 @@ app.get('/name', function(req, res, next) {
   res.send({name: 'Stephen Done'});
 });
 
-app.get('/location', function(req, res) {
-  //Or we can use res.json() - it forces JSON response
-  res.json({location: 'Somewhere in your head'});
-});
+(function () {
+  var location = {location: 'Somewhere in your head'};
+
+  app.get('/location', function (req, res) {
+    //Or we can use res.json() - it forces JSON response
+    res.json(location);
+  });
+
+  app.put('/location', function (req, res) {
+    console.log(req.body);
+    if (!req.body.location) {
+      res.sendStatus(400);
+    } else {
+      location = req.body.location;
+      res.json(req.body);
+    }
+  });
+}());
 
 app.get('/hobbies', function(req, res) {
   var hobbies = ['reading', 'singing', 'hacking', 'learning cool stuff'];
