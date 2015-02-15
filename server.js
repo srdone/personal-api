@@ -68,19 +68,19 @@ app.get('/occupations', function(req, res, next) {
 var wellsFargo = {
   company: 'Wells Fargo',
   position: 'Operations Analyst',
-  start: Date('September 1, 2007'),
-  end: Date('September 30, 2008')
+  start: new Date('September 1, 2007'),
+  end: new Date('September 30, 2008')
 };
 var universityOfPhoenix = {
   company: 'University of Phoenix',
   position: 'Business Analyst',
-  start: Date('October 1, 2008'),
-  end: Date('October 31, 2009')
+  start: new Date('October 1, 2008'),
+  end: new Date('October 31, 2009')
 };
 var universityOfPhoenix2 = {
   company: 'University of Phoenix',
   position: 'Business Analyst II - Team Lead',
-  start: Date('November 1, 2009')
+  start: new Date('November 1, 2009')
 };
 
 var allPositions = [wellsFargo, universityOfPhoenix, universityOfPhoenix2];
