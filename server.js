@@ -6,13 +6,14 @@ var express = require('express'),
 //initialize express
 var app = express();
 
-//add middleware
+//add middleware for all calls
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 //json data - getters only - not yet in json
-app.get('/name', function(req, res) {
-  res.send('Stephen Done');
+app.get('/name', function(req, res, next) {
+  //note that send ends the request / response cycle and stops calling middleware - it DOES send JSON
+  res.send({name: 'Stephen Done'});
 });
 app.get('/location', function(req, res) {
   res.send('Somewhere in your head');
