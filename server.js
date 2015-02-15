@@ -43,27 +43,49 @@ app.get('/hobbies', function(req, res) {
   res.json({hobbies: hobbies});
 });
 
+app.get('/occupations', function(req, res, next) {
+  var compare = function (a,b) {
+    if (a.start > b.start) {
+      return 1;
+    } else if (a.start < b.start) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
+  if (req.query.sort === 'asc') {
+    allPositions.sort(compare);
+  } else if(req.query.sort === 'desc') {
+    allPositions.reverse(compare);
+  };
+
+  console.log(allPositions);
+
+  next();
+});
+
+var wellsFargo = {
+  company: 'Wells Fargo',
+  position: 'Operations Analyst',
+  start: Date('September 1, 2007'),
+  end: Date('September 30, 2008')
+};
+var universityOfPhoenix = {
+  company: 'University of Phoenix',
+  position: 'Business Analyst',
+  start: Date('October 1, 2008'),
+  end: Date('October 31, 2009')
+};
+var universityOfPhoenix2 = {
+  company: 'University of Phoenix',
+  position: 'Business Analyst II - Team Lead',
+  start: Date('November 1, 2009')
+};
+
+var allPositions = [wellsFargo, universityOfPhoenix, universityOfPhoenix2];
+
 app.get('/occupations', function(req, res) {
-  var wellsFargo = {
-    company: 'Wells Fargo',
-    position: 'Operations Analyst',
-    start: Date('September 1, 2007'),
-    end: Date('September 30, 2008')
-  };
-  var universityOfPhoenix = {
-    company: 'University of Phoenix',
-    position: 'Business Analyst',
-    start: Date('October 1, 2008'),
-    end: Date('October 31, 2009')
-  };
-  var universityOfPhoenix2 = {
-    company: 'University of Phoenix',
-    position: 'Business Analyst II - Team Lead',
-    start: Date('November 1, 2009')
-  };
-
-  var allPositions = [wellsFargo, universityOfPhoenix, universityOfPhoenix2];
-
   res.json(allPositions);
 });
 
